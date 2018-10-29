@@ -12,30 +12,30 @@
 
   <body>
     <div id="app" class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <h1>Hello {{fullname}}</h1>
-          <ul class="text-left">
-            <li>First Name: {{first}}</li>
-            <li>Last Name: {{last}}</li>
-          </ul>
-            <hr />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>First Name:</label>
-            <input type="text" class="form-control" v-model="first"/>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Last Name:</label>
-            <input type="text" class="form-control" v-model="last" />
-          </div>
-        </div>
-      </div>
+         <div class="row">
+           First Name: <strong v-text="firstname"></strong>
+         </div>
+        <div class="row">
+           Last Name: <strong v-text="lastname"></strong>
+         </div>
+          <div class="row">
+           Full Name: <strong>{{fullname}}</strong>
+         </div>
+       <div class="row">
+         <div class="col-sm-4">
+           FirstName:
+           <input type="text" class="form-control-sm" v-model="firstname">
+         </div>
+         <div class="col-sm-4">
+           LastName:
+           <input type="text" class="form-control-sm" v-model="lastname">
+         </div>
+         <div class="col-sm-4">
+           FullName:
+           <input type="text" v-model="fullname">
+         </div>
+       </div>
+
     </div>
   </body>
 
@@ -45,14 +45,35 @@
     var app = new Vue({
       el: '#app',
       data: {
-        first: '',
-        last: ''
+        firstname: '',
+        lastname: '',
+          length:0,
+          head:''
+
       },
       computed: {
-        fullname: function() {
-          return this.first + " " + this.last
+        fullname: {
+            get: function () {
+                var result = this.firstname;
+                if (this.lastname != '')
+                    result += ' ' + this.last;
+                return result;
+            },
+            set: function (value) {
+                var name = value.split(' ');
+                this.firstname = name[0];
+                if (name.length > 1)
+                    this.lastname = name[name.length - 1];
+            }
         }
-      }
+       },
+        methods:{
+           call()
+           {
+              head=name[this.length];
+              alert(head);
+           }
+        }
     })
   </script>
 </html>
